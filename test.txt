@@ -1,3 +1,0 @@
-HTTPSµÿ÷∑£∫https://github.com/lz958942/tuanche.git
-
-SSHµÿ÷∑£∫git@github.com:lz958942/tuanche.git
