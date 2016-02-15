@@ -27,9 +27,10 @@ public class AppTest {
     //test
     public static void testGet() {
         String url = "http://172.16.12.43:9199/chooseGoodCar/getGoodCarLabels";
-        ResponseContent responseContent = HttpHelper.getUrlRespContent(url);
-        try {
-            System.out.println(responseContent.getContent());
+        ResponseContent responseContent;
+		try {
+			responseContent = HttpHelper.getUrlRespContent(url);
+			System.out.println(responseContent.getContent());
             System.out.println(responseContent.getContent("utf-8"));
             System.out.println(responseContent.getContentType());
             System.out.println(responseContent.getContentTypeString());
@@ -37,26 +38,30 @@ public class AppTest {
             System.out.println(responseContent.getStatusCode());
             System.out.println(responseContent.getUTFContent());
             System.out.println(responseContent.getContentBytes());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
     }
     //test
     public static void testGetEncoding() {
         String url = "http://172.16.12.43:9199/chooseGoodCar/getGoodCarLabels";
-        ResponseContent responseContent = HttpHelper.getUrlRespContent(url,"gbk");
-        try {
-            System.out.println(responseContent.getContent());
-            System.out.println(responseContent.getContent("utf-8"));
-            System.out.println(responseContent.getContentType());
-            System.out.println(responseContent.getContentTypeString());
-            System.out.println(responseContent.getEncoding());
-            System.out.println(responseContent.getStatusCode());
-            System.out.println(responseContent.getUTFContent());
-            System.out.println(responseContent.getContentBytes());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        ResponseContent responseContent;
+		try {
+			responseContent = HttpHelper.getUrlRespContent(url,"gbk");
+			 System.out.println(responseContent.getContent());
+	            System.out.println(responseContent.getContent("utf-8"));
+	            System.out.println(responseContent.getContentType());
+	            System.out.println(responseContent.getContentTypeString());
+	            System.out.println(responseContent.getEncoding());
+	            System.out.println(responseContent.getStatusCode());
+	            System.out.println(responseContent.getUTFContent());
+	            System.out.println(responseContent.getContentBytes());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     }
        
     //test
@@ -74,19 +79,21 @@ public class AppTest {
     //test
     public static void testPost() {
         String url = "http://172.16.4.38:3084/chooseGoodCar/getGoodCarList?carLabelId=1";
-        ResponseContent responseContent = HttpHelper.postUrl(url);
-        try {
-            System.out.println(responseContent.getContent());
-            System.out.println(responseContent.getContent("utf-8"));
-            System.out.println(responseContent.getContentType());
-            System.out.println(responseContent.getContentTypeString());
-            System.out.println(responseContent.getEncoding());
-            System.out.println(responseContent.getStatusCode());
-            System.out.println(responseContent.getUTFContent());
-            System.out.println(responseContent.getContentBytes());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        ResponseContent responseContent;
+		try {
+			responseContent = HttpHelper.postUrl(url);
+			 System.out.println(responseContent.getContent());
+	            System.out.println(responseContent.getContent("utf-8"));
+	            System.out.println(responseContent.getContentType());
+	            System.out.println(responseContent.getContentTypeString());
+	            System.out.println(responseContent.getEncoding());
+	            System.out.println(responseContent.getStatusCode());
+	            System.out.println(responseContent.getUTFContent());
+	            System.out.println(responseContent.getContentBytes());
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     }   
     
     public static void testPost1() {

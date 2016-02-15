@@ -4,10 +4,11 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.FileBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
  
 /**
  * HTTP工具类，封装HttpClient4.3.x来对外提供简化的HTTP请求
@@ -19,6 +20,7 @@ public class HttpHelper {
     private static Integer socketTimeout            = 50;
     private static Integer connectTimeout           = 6000;
     private static Integer connectionRequestTimeout = 50;
+    private final static Logger logger = LoggerFactory.getLogger(HttpHelper.class);
  
     /**
      * 使用Get方式 根据URL地址，获取ResponseContent对象
@@ -27,13 +29,18 @@ public class HttpHelper {
      *            完整的URL地址，编码格式默认为UTF-8
      * @return ResponseContent 如果发生异常则返回null，否则返回ResponseContent对象
      */
-    public static ResponseContent getUrlRespContent(String url) {
+    public static ResponseContent getUrlRespContent(String url) throws Exception {
         HttpClientWrapper hw = new HttpClientWrapper(connectionRequestTimeout, connectTimeout, socketTimeout);
         ResponseContent response = null;
         try {
+        	 if(url!=null){
+    			 logger.info("getUrlRespContent方法，String格式的参数，参数为："+url.toString()); 
+    		 }
             response = hw.getResponse(url);
         } catch (Exception e) {
+        	logger.error("getUrlRespContent方法异常");
             e.printStackTrace();
+            throw e;
         }
         return response;
     }
@@ -47,13 +54,18 @@ public class HttpHelper {
      *            编码，可以为null
      * @return ResponseContent 如果发生异常则返回null，否则返回ResponseContent对象
      */
-    public static ResponseContent getUrlRespContent(String url, String urlEncoding) {
+    public static ResponseContent getUrlRespContent(String url, String urlEncoding) throws Exception {
         HttpClientWrapper hw = new HttpClientWrapper(connectionRequestTimeout, connectTimeout, socketTimeout);
         ResponseContent response = null;
         try {
+        	 if(url!=null){
+    			 logger.info("getUrlRespContent方法，String格式的参数，参数为："+url.toString()); 
+    		 }
             response = hw.getResponse(url, urlEncoding);
         } catch (Exception e) {
+        	logger.error("getUrlRespContent方法异常");
             e.printStackTrace();
+            throw e;
         }
         return response;
     }
@@ -64,14 +76,19 @@ public class HttpHelper {
      * @param url
      * @return
      */
-    public static ResponseContent postUrl(String url) {
+    public static ResponseContent postUrl(String url) throws Exception{
         HttpClientWrapper hw = new HttpClientWrapper();
         ResponseContent ret = null;
         try {
+        	 if(url!=null){
+    			 logger.info("postUrl方法，String格式的参数，参数为："+url.toString()); 
+    		 }
             setParams(url, hw);
             ret = hw.postNV(url);
         } catch (Exception e) {
+        	logger.error("postUrl方法异常");
             e.printStackTrace();
+            throw e;
         }
         return ret;
     }
@@ -112,14 +129,19 @@ public class HttpHelper {
      *            NameValuePair的列表
      * @return ResponseContent 如果发生异常则返回空，否则返回ResponseContent对象
      */
-    public static ResponseContent postEntity(String url, List<NameValuePair> param,String contentType) {
+    public static ResponseContent postEntity(String url, List<NameValuePair> param,String contentType)throws Exception {
     	 ResponseContent ret = null;
     	 HttpClientWrapper hw = new HttpClientWrapper();
     	 try {
+    		 if(param!=null){
+    			 logger.info("postEntity方法，List<NameValuePair>格式的参数，参数为："+param.toString()); 
+    		 }
              hw.setNameValuePostBodies(param);
              ret = hw.postNV(url, contentType);
          } catch (Exception e) {
+        	 logger.error("postEntity方法异常");
              e.printStackTrace();
+             throw e;
          }
     	 return ret;
     }
@@ -132,14 +154,19 @@ public class HttpHelper {
      *            map参数键值对
      * @return ResponseContent 如果发生异常则返回空，否则返回ResponseContent对象
      */
-    public static ResponseContent postEntity(String url, Map<String,String> param,String contentType) {
+    public static ResponseContent postEntity(String url, Map<String,String> param,String contentType)throws Exception {
     	 ResponseContent ret = null;
     	 HttpClientWrapper hw = new HttpClientWrapper();
     	 try {
+    		 if(param!=null){
+    			 logger.info("postEntity方法，Map<String,String>格式的参数，参数为："+param.toString()); 
+    		 }
     		 setMapParams(param,hw);
              ret = hw.postNV(url, contentType);
          } catch (Exception e) {
+        	 logger.error("postEntity方法异常");
              e.printStackTrace();
+             throw e;
          }
     	 return ret;
     }
@@ -164,7 +191,7 @@ public class HttpHelper {
 	
 /*===============================================================华丽的分割线，以下方法待研究======================================================*/
 	/**
-     * 上传文件（包括图片） 弃用
+     * 上传文件（包括图片） 
      * 
      * @param url
      *            请求URL
