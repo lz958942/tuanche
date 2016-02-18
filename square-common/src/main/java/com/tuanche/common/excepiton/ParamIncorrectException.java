@@ -8,7 +8,6 @@ package com.tuanche.common.excepiton;
 public class ParamIncorrectException extends BaseException {
 	private static final long serialVersionUID = 1L;
 
-
 	/**
 	 * 构造器
 	 */
