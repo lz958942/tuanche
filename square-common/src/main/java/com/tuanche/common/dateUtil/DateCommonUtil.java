@@ -19,6 +19,7 @@ import java.util.Date;
  * @from afi
  */ 
 
+
 public class DateCommonUtil extends DateSimpleFormUtil{
 
 	public enum IntervalUnit {
