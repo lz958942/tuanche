@@ -20,7 +20,7 @@ public class HttpHelper {
     private static Integer socketTimeout            = 50;
     private static Integer connectTimeout           = 6000;
     private static Integer connectionRequestTimeout = 50;
-    private final static Logger logger = LoggerFactory.getLogger(HttpHelper.class);
+    //private final static Logger logger = LoggerFactory.getLogger(HttpHelper.class);
  
     /**
      * 使用Get方式 根据URL地址，获取ResponseContent对象
@@ -34,11 +34,11 @@ public class HttpHelper {
         ResponseContent response = null;
         try {
         	 if(url!=null){
-    			 logger.info("getUrlRespContent方法，String格式的参数，参数为："+url.toString()); 
+    			 //logger.info("getUrlRespContent方法，String格式的参数，参数为："+url.toString()); 
     		 }
             response = hw.getResponse(url);
         } catch (Exception e) {
-        	logger.error("getUrlRespContent方法异常");
+        	//logger.error("getUrlRespContent方法异常");
             e.printStackTrace();
             throw e;
         }
@@ -59,11 +59,11 @@ public class HttpHelper {
         ResponseContent response = null;
         try {
         	 if(url!=null){
-    			 logger.info("getUrlRespContent方法，String格式的参数，参数为："+url.toString()); 
+    			 //logger.info("getUrlRespContent方法，String格式的参数，参数为："+url.toString()); 
     		 }
             response = hw.getResponse(url, urlEncoding);
         } catch (Exception e) {
-        	logger.error("getUrlRespContent方法异常");
+        	//logger.error("getUrlRespContent方法异常");
             e.printStackTrace();
             throw e;
         }
@@ -81,12 +81,12 @@ public class HttpHelper {
         ResponseContent ret = null;
         try {
         	 if(url!=null){
-    			 logger.info("postUrl方法，String格式的参数，参数为："+url.toString()); 
+    			//logger.info("postUrl方法，String格式的参数，参数为："+url.toString()); 
     		 }
             setParams(url, hw);
             ret = hw.postNV(url);
         } catch (Exception e) {
-        	logger.error("postUrl方法异常");
+        	//logger.error("postUrl方法异常");
             e.printStackTrace();
             throw e;
         }
@@ -134,12 +134,12 @@ public class HttpHelper {
     	 HttpClientWrapper hw = new HttpClientWrapper();
     	 try {
     		 if(param!=null){
-    			 logger.info("postEntity方法，List<NameValuePair>格式的参数，参数为："+param.toString()); 
+    			 //logger.info("postEntity方法，List<NameValuePair>格式的参数，参数为："+param.toString()); 
     		 }
              hw.setNameValuePostBodies(param);
              ret = hw.postNV(url, contentType);
          } catch (Exception e) {
-        	 logger.error("postEntity方法异常");
+        	 //logger.error("postEntity方法异常");
              e.printStackTrace();
              throw e;
          }
@@ -159,12 +159,12 @@ public class HttpHelper {
     	 HttpClientWrapper hw = new HttpClientWrapper();
     	 try {
     		 if(param!=null){
-    			 logger.info("postEntity方法，Map<String,String>格式的参数，参数为："+param.toString()); 
+    			 //logger.info("postEntity方法，Map<String,String>格式的参数，参数为："+param.toString()); 
     		 }
     		 setMapParams(param,hw);
              ret = hw.postNV(url, contentType);
          } catch (Exception e) {
-        	 logger.error("postEntity方法异常");
+        	 //logger.error("postEntity方法异常");
              e.printStackTrace();
              throw e;
          }
