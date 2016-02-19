@@ -123,6 +123,7 @@ public class Constant {
 		 * 
 		 */
 		public static final class Symmetry {
+			public static final String AES = "AES";
 			public static final String DES = "DES";
 		}
 	}

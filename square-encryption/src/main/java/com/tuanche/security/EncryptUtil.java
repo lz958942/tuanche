@@ -74,6 +74,23 @@ public class EncryptUtil {
 	 * @return 加密后的字符串
 	 */
 	public static String encrypt(String xmlStr) {
+		return encrypt(xmlStr, secretKey, Algorithm.Symmetry.DES);
+	}
+
+	/**
+	 * <li>
+	 * 方法名称:encrypt</li> <li>
+	 * 加密方法
+	 * 
+	 * @param xmlStr
+	 *            需要加密的消息字符串
+	 * @param secretKey
+	 *            密钥字符串
+	 * @param symmetryAlgorithm
+	 *            对称加密算法
+	 * @return 加密后的字符串
+	 */
+	public static String encrypt(String xmlStr, String secretKey, String symmetryAlgorithm) {
 		byte[] encrypt = null;
 
 		try {
@@ -83,20 +100,20 @@ public class EncryptUtil {
 			e.printStackTrace();
 		}
 		// 取MD5Hash码，并组合加密数组
-		byte[] md5Hasn = null;
+		byte[] md5Hash = null;
 		try {
-			md5Hasn = MD5Hash(encrypt, 0, encrypt.length);
+			md5Hash = MD5Hash(encrypt, 0, encrypt.length);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		// 组合消息体
-		byte[] totalByte = addMD5(md5Hasn, encrypt);
+		byte[] totalByte = addMD5(md5Hash, encrypt);
 
 		// 取密钥和偏转向量
 		byte[] key = new byte[8];
 		byte[] iv = new byte[8];
 		getKeyIV(secretKey, key, iv);
-		SecretKeySpec deskey = new SecretKeySpec(key, Algorithm.Symmetry.DES);
+		SecretKeySpec deskey = new SecretKeySpec(key, symmetryAlgorithm);
 		IvParameterSpec ivParam = new IvParameterSpec(iv);
 
 		// 使用DES算法使用加密消息体
@@ -128,6 +145,30 @@ public class EncryptUtil {
 	 * @throws Exception
 	 */
 	public static String decrypt(String xmlStr) throws Exception {
+		return decrypt(xmlStr, secretKey, Algorithm.Symmetry.DES);
+	}
+
+	/**
+	 * <li>
+	 * 方法名称:decrypt</li> <li>
+	 * 功能描述:
+	 * 
+	 * <pre>
+	 * 解密方法
+	 * </pre>
+	 * 
+	 * </li>
+	 * 
+	 * @param xmlStr
+	 *            需要解密的消息字符串
+	 * @param secretKey
+	 *            密钥字符串
+	 * @param symmetryAlgorithm
+	 *            对称解密算法
+	 * @return 解密后的字符串
+	 * @throws Exception
+	 */
+	public static String decrypt(String xmlStr, String secretKey, String symmetryAlgorithm) throws Exception {
 		// base64解码
 		BASE64Decoder decoder = new BASE64Decoder();
 		byte[] encBuf = null;
@@ -142,7 +183,7 @@ public class EncryptUtil {
 		byte[] iv = new byte[8];
 		getKeyIV(secretKey, key, iv);
 
-		SecretKeySpec deskey = new SecretKeySpec(key, Algorithm.Symmetry.DES);
+		SecretKeySpec deskey = new SecretKeySpec(key, symmetryAlgorithm);
 		IvParameterSpec ivParam = new IvParameterSpec(iv);
 
 		// 使用DES算法解密
@@ -418,12 +459,11 @@ public class EncryptUtil {
 			e.printStackTrace();
 		}
 		// 前8位为key
-		int i;
-		for (i = 0; i < key.length; i++) {
+		for (int i = 0; i < key.length; i++) {
 			key[i] = buf[i];
 		}
 		// 后8位为iv向量
-		for (i = 0; i < iv.length; i++) {
+		for (int i = 0; i < iv.length; i++) {
 			iv[i] = buf[i + 8];
 		}
 	}
@@ -471,8 +511,8 @@ public class EncryptUtil {
 	 * @throws IOException
 	 */
 	public static String decodeBase64(String str) throws IOException {
-		BASE64Decoder encoder = new BASE64Decoder();
-		return new String(encoder.decodeBuffer(str));
+		BASE64Decoder decoder = new BASE64Decoder();
+		return new String(decoder.decodeBuffer(str));
 	}
 
 	//
