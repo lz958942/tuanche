@@ -21,8 +21,8 @@ public class ImgCompress {
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws Exception {
 		System.out.println("开始：" + new Date().toLocaleString());
-		ImgCompress imgCom = new ImgCompress("f:\\天安门大桥.png");//要压缩的文件
-		File file=imgCom.resizeFix(400, 400);//压缩的宽和高
+		ImgCompress imgCom = new ImgCompress("f:\\桥.png");//要压缩的文件
+		File file=imgCom.resizeFix(400, 4000,"_b");//压缩的宽和高
 		System.out.println("结束：" + new Date().toLocaleString());
 		System.out.println(file.getName());
 	}
@@ -45,13 +45,15 @@ public class ImgCompress {
 	 *            int 最大宽度
 	 * @param h
 	 *            int 最大高度
+	 * @param afterStr
+	 *            String 压缩后图片所跟后缀
 	 * @return 
 	 */
-	public File resizeFix(int w, int h) throws IOException {
+	public File resizeFix(int w, int h,String afterStr) throws IOException {
 		if (width / height > w / h) {
-			return resizeByWidth(w);
+			return resizeByWidth(w,afterStr);
 		} else {
-			return resizeByHeight(h);
+			return resizeByHeight(h,afterStr);
 		}
 	}
 
@@ -62,9 +64,9 @@ public class ImgCompress {
 	 *            int 新宽度
 	 * @return 
 	 */
-	public File resizeByWidth(int w) throws IOException {
+	public File resizeByWidth(int w,String afterStr) throws IOException {
 		int h = (int) (height * w / width);
-		return resize(w, h);
+		return resize(w, h, afterStr);
 	}
 
 	/**
@@ -74,9 +76,9 @@ public class ImgCompress {
 	 *            int 新高度
 	 * @return 
 	 */
-	public File resizeByHeight(int h) throws IOException {
+	public File resizeByHeight(int h,String afterStr) throws IOException {
 		int w = (int) (width * h / height);
-		return resize(w, h);
+		return resize(w, h, afterStr);
 	}
 
 	/**
@@ -87,14 +89,14 @@ public class ImgCompress {
 	 * @param h
 	 *            int 新高度
 	 */
-	public File resize(int w, int h) throws IOException {
+	public File resize(int w, int h,String afterStr) throws IOException {
 		// SCALE_SMOOTH 的缩略算法 生成缩略图片的平滑度的 优先级比速度高 生成的图片质量比较好 但速度慢
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 		image.getGraphics().drawImage(img, 0, 0, w, h, null); // 绘制缩小后的图
 		int point=fileName.lastIndexOf(".");
 		String frontName=fileName.substring(0, point);
 		String lastName=fileName.substring(point);
-		File destFile = new File(frontName+"_s"+lastName);
+		File destFile = new File(frontName+afterStr+lastName);
 		FileOutputStream out = new FileOutputStream(destFile); // 输出到文件流
 		// 可以正常实现bmp、png、gif转jpg
 		JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);

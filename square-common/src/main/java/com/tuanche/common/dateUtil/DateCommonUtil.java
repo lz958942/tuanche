@@ -8,7 +8,7 @@ import java.util.Date;
  * <p>日期工具类</p>
  * 
  * <PRE>
- * <BR>	修改记录
+ * <BR>	修改记录  20160218
  * <BR>-----------------------------------------------
  * <BR>	修改日期			修改人			修改内容
  * <PRE>
@@ -18,6 +18,7 @@ import java.util.Date;
  * @version 1.0
  * @from afi
  */ 
+
 
 public class DateCommonUtil extends DateSimpleFormUtil{
 
