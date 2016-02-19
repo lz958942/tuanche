@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.tuanche.square</groupId>
 	<artifactId>tuanche-square</artifactId>
-	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<distributionManagement>
 		<repository>
 			<id>tuancheReleases</id>
@@ -40,6 +40,16 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.13</version>
 		</dependency>
 	</dependencies>
 
