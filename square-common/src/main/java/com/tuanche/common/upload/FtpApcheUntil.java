@@ -21,6 +21,8 @@ public class FtpApcheUntil {
      *            FTP服务器保存目录,如果是根目录则为“/”
      * @param filename
      *            上传到FTP服务器上的文件名
+     * @param input
+     *            本地文件输入流
      * @return 成功返回true，否则返回false
      */
 	public static void upload(String ftpPath,List<String> fileList,String host,String userName,String passWord) throws Exception {

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 import com.tuanche.common.httpclient.HttpHelper;
 import com.tuanche.common.httpclient.ResponseContent;
@@ -22,21 +21,7 @@ public class AppTest {
 		//testGetEncoding();
 		//testUploadFile();
 		//testPost();
-		//testPost1();
-		
-		String str="http://12306.com4234234234fdsafsaf423432fsdf";
-		Pattern pattern = Pattern.compile("[0-9]+");
-		String[] strs = pattern.split(str);
-		for (int i=0;i<strs.length;i++) {
-		    System.out.println(strs[i]);
-		} 
-		
-		Pattern pattern1 = Pattern.compile("[^0-9]+");
-		String[] strs1 = pattern1.split(str);
-		for (int i=0;i<strs1.length;i++) {
-		    System.out.println(strs1[i]);
-		} 
-		
+		testPost1();
 	}
 	
     //test
@@ -93,7 +78,7 @@ public class AppTest {
     
     //test
     public static void testPost() {
-        String url = "http://172.16.12.43:9199/chooseGoodCar/getGoodCarList?carLabelId=1";
+        String url = "http://172.16.4.38:3084/chooseGoodCar/getGoodCarList?carLabelId=1";
         ResponseContent responseContent;
 		try {
 			responseContent = HttpHelper.postUrl(url);

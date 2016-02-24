@@ -20,18 +20,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
+ 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
+ 
 import org.apache.http.Consts;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.HttpHeaders;
-import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
@@ -45,7 +44,6 @@ import org.apache.http.config.MessageConstraints;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.config.SocketConfig;
-import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -74,8 +72,7 @@ public class HttpClientWrapper {
 	private enum VERBTYPE {
 		GET, POST
 	}
-
-	/* POST请求的时间设定 */
+    /*POST请求的时间设定*/
 	private Integer socketTimeout = 5000;
 	private Integer connectTimeout = 5000;
 	private Integer connectionRequestTimeout = 5000;
@@ -88,21 +85,9 @@ public class HttpClientWrapper {
 
 	static {
 		try {
-			/* SSL验证 */
 			SSLContext sslContext = SSLContexts.custom().useTLS().build();
-			/*
-			 * X509HostnameVerifier接口代表主机名验证的策略,在HttpClient中，
-			 * X509HostnameVerifier有三个实现类。重要提示：主机名有效性验证不应该和ssl信任验证混为一谈。
-			 */
-			/* 验证目标域名和存储在X.509证书中的域名是否一致 */
 			sslContext.init(null, new TrustManager[] { new X509TrustManager() {
-				/*
-				 * BrowserCompatHostnameVerifier: 这种验证主机名的方法，和Curl及firefox一致。
-				 * StrictHostnameVerifier和BrowserCompatHostnameVerifier方式唯一不同的地方就是
-				 * ，带有通配符的域名（比如*.yeetrack.com),
-				 * BrowserCompatHostnameVerifier方式在匹配时会匹配所有的的子域名，包括
-				 * a.b.yeetrack.com .
-				 */
+
 				public void checkClientTrusted(java.security.cert.X509Certificate[] arg0, String arg1)
 						throws CertificateException {
 				}
@@ -115,13 +100,10 @@ public class HttpClientWrapper {
 					return null;
 				}
 			} }, null);
-			/* 自定义的socket工厂类可以和指定的协议（Http、Https）联系起来，用来创建自定义的连接管理器。 */
 			Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory> create()
 					.register("http", PlainConnectionSocketFactory.INSTANCE)
 					.register("https", new SSLConnectionSocketFactory(sslContext)).build();
 			connManager = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
-			// 指定socket接收和发送数据的方式
-			// 当使用setTcpNoDelay（true）将Nagle算法关闭后，客户端每发送一次数据，无论数据包的大小都会将这些数据发送出去。
 			SocketConfig socketConfig = SocketConfig.custom().setTcpNoDelay(true).build();
 			connManager.setDefaultSocketConfig(socketConfig);
 			MessageConstraints messageConstraints = MessageConstraints.custom().setMaxHeaderCount(200)
@@ -131,10 +113,8 @@ public class HttpClientWrapper {
 					.setUnmappableInputAction(CodingErrorAction.IGNORE).setCharset(Consts.UTF_8)
 					.setMessageConstraints(messageConstraints).build();
 			connManager.setDefaultConnectionConfig(connectionConfig);
-			connManager.setMaxTotal(200);// 最大连接数
-			connManager.setDefaultMaxPerRoute(20);// 设置每个路由最大连接数
-			HttpHost localhost = new HttpHost("locahost", 80);
-			connManager.setMaxPerRoute(new HttpRoute(localhost), 50);// 如果是本地服务器的连接，就设置成50个
+			connManager.setMaxTotal(200);
+			connManager.setDefaultMaxPerRoute(20);
 		} catch (KeyManagementException e) {
 
 		} catch (NoSuchAlgorithmException e) {
@@ -191,8 +171,8 @@ public class HttpClientWrapper {
 	}
 
 	/**
-	 * POST方式发送名值对请求URL 参数在url里面
-	 * 
+	 * POST方式发送名值对请求URL
+	 * 参数在url里面
 	 * @param url
 	 * @return
 	 * @throws HttpException
@@ -525,4 +505,5 @@ public class HttpClientWrapper {
 		this.nameValuePostBodies = nameValuePostBodies;
 	}
 
+	
 }
