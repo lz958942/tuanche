@@ -1,11 +1,14 @@
 package com.tuanche.common.imageUtil;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 import com.sun.image.codec.jpeg.*;
+import com.tuanche.common.upload.FtpApcheUntil;
 
 /**
  * 图片压缩处理
@@ -24,7 +27,11 @@ public class ImgCompress {
 		ImgCompress imgCom = new ImgCompress("f:\\桥.png");//要压缩的文件
 		File file=imgCom.resizeFix(400, 4000,"_b");//压缩的宽和高
 		System.out.println("结束：" + new Date().toLocaleString());
-		System.out.println(file.getName());
+		System.out.println(file.getPath());
+		String url = "172.16.12.71";       
+        List<String> fileList=new ArrayList<String>();
+        fileList.add(file.getPath());
+         FtpApcheUntil.upload("/testUpload", fileList, url, "activity_port", "activity_port");
 	}
 
 	/**
