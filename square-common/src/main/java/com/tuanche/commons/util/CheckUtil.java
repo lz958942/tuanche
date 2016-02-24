@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tuanche.common.constant.Charset;
 import com.tuanche.common.constant.Constant;
 
@@ -98,7 +100,7 @@ public class CheckUtil {
 	 * @param objs 待检测的对象
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean CheckObjectArrayIsNull(final Object[] objs) {
+	public static boolean checkObjectArrayIsNull(final Object[] objs) {
 		if ((objs == null) || (objs.length == 0)) {
 			return true;
 		}
@@ -119,7 +121,7 @@ public class CheckUtil {
 	 * @return true: 空; false:非空.
 	 */
 	public static boolean checkStringIsNull(final String str) {
-		return (str == null) || (str.trim().length() == 0);
+		return StringUtils.isBlank(str);
 	}
 
 	/**
