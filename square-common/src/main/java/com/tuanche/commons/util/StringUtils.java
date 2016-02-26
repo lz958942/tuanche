@@ -78,6 +78,9 @@ public class StringUtils {
 	 */
 	public static byte[] strToByte(String value) throws Exception {
 		try {
+			if (isEmpty(value)) {
+				return new byte[0];
+			}
 			return value.getBytes();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,6 +93,9 @@ public class StringUtils {
 	 */
 	public static byte[] strToByte(String value, String encode) throws Exception {
 		try {
+			if (isEmpty(value)) {
+				return new byte[0];
+			}
 			return value.getBytes(encode);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,6 +115,9 @@ public class StringUtils {
 	 */
 	public static String encodeUTF8(String value) throws Exception {
 		try {
+			if (isEmpty(value)) {
+				return "";
+			}
 			return URLEncoder.encode(value, "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			throw e;
@@ -120,6 +129,9 @@ public class StringUtils {
 	 */
 	public static String decodeUTF8(String value) throws Exception {
 		try {
+			if (isEmpty(value)) {
+				return "";
+			}
 			return URLDecoder.decode(value, "utf-8");
 		} catch (UnsupportedEncodingException e) {
 			throw e;
@@ -157,6 +169,13 @@ public class StringUtils {
 		/*
 		 * 此方法有两个参数，第一个是要查找的字符串数组，第二个是要查找的字符或字符串
 		 */
+		if (isEmpty(s)) {
+			return false;
+		}
+		if (strs==null||strs.length==0) {
+			return false;
+		}
+		
 		for (int i = 0; i < strs.length; i++) {
 			if (strs[i].indexOf(s) != -1) {// 循环查找字符串数组中的每个字符串中是否包含所有查找的内容
 				return true;// 查找到了就返回真，不在继续查询
@@ -181,8 +200,11 @@ public class StringUtils {
 	 * 
 	 */
 	public static String rightSubString(String str, int index) {
-		if (isEmpty(str)||index>str.length()) {
+		if (isEmpty(str)) {
 			return "";
+		}
+		if(index>str.length()){
+			return str;
 		}
 		return str.substring(str.length() - index, str.length());
 	}
