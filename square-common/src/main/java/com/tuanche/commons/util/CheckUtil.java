@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.tuanche.common.constant.Charset;
 import com.tuanche.common.constant.Constant;
 
 /**
@@ -28,7 +27,7 @@ public class CheckUtil {
 		if (null == mobile) {
 			return false;
 		} else {
-			return mobile.matches(Constant.mobileReg);
+			return mobile.matches(Constant.RegularExpression.mobileReg);
 		}
 	}
 
@@ -43,7 +42,7 @@ public class CheckUtil {
 		if (null == email) {
 			return false;
 		} else {
-			return email.matches(Constant.emailReg);
+			return email.matches(Constant.RegularExpression.emailReg);
 		}
 	}
 
@@ -58,7 +57,7 @@ public class CheckUtil {
 		if (null == ip) {
 			return false;
 		} else {
-			return ip.matches(Constant.ipReg);
+			return ip.matches(Constant.RegularExpression.ipReg);
 		}
 	}
 
@@ -69,7 +68,7 @@ public class CheckUtil {
 	 * @param obj 待检测的对象
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean checkObjectIsNull(final Object obj) {
+	public static boolean checkObjectIsNull(Object obj) {
 		if (obj instanceof String) {
 			return checkStringIsNull((String) obj);
 		}
@@ -83,10 +82,9 @@ public class CheckUtil {
 	 * @param objs 待检测的对象
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean checkVariableObjectArrayIsNull(final Object... objs) {
-		for (final Object obj : objs) {
-			final boolean nun = checkObjectIsNull(obj);
-			if (nun) {
+	public static boolean checkVariableObjectArrayIsNull(Object... objs) {
+		for (Object obj : objs) {
+			if (checkObjectIsNull(obj)) {
 				return true;
 			}
 		}
@@ -100,12 +98,12 @@ public class CheckUtil {
 	 * @param objs 待检测的对象
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean checkObjectArrayIsNull(final Object[] objs) {
+	public static boolean checkObjectArrayIsNull(Object[] objs) {
 		if ((objs == null) || (objs.length == 0)) {
 			return true;
 		}
-		for (final Object obj : objs) {
-			final boolean nun = checkObjectIsNull(obj);
+		for (Object obj : objs) {
+			boolean nun = checkObjectIsNull(obj);
 			if (nun) {
 				return true;
 			}
@@ -120,7 +118,7 @@ public class CheckUtil {
 	 * @param str
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean checkStringIsNull(final String str) {
+	public static boolean checkStringIsNull(String str) {
 		return StringUtils.isBlank(str);
 	}
 
@@ -130,7 +128,7 @@ public class CheckUtil {
 	 * @param str
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean checkStringIsNullStrictly(final String str) {
+	public static boolean checkStringIsNullStrictly(String str) {
 		return checkStringIsNull(str) || "null".equalsIgnoreCase(str);
 	}
 	
@@ -140,7 +138,7 @@ public class CheckUtil {
 	 * @param colls
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean checkCollectionIsNullOrEmpty(final Collection<?> colls) {
+	public static boolean checkCollectionIsNullOrEmpty(Collection<?> colls) {
 		return (colls == null) || colls.isEmpty();
 	}
 
@@ -150,7 +148,7 @@ public class CheckUtil {
 	 * @param map
 	 * @return true: 空; false:非空.
 	 */
-	public static boolean checkMapIsNullOrEmpty(final Map<?, ?> map) {
+	public static boolean checkMapIsNullOrEmpty(Map<?, ?> map) {
 		return (map == null) || map.isEmpty();
 	}
 	
@@ -160,8 +158,8 @@ public class CheckUtil {
 	 * @param params
 	 * @return
 	 */
-	public static String encodeUrlWithUTF8(final String params) {
-		return encodeUrl(params, Charset.UTF8);
+	public static String encodeUrlWithUTF8(String params) {
+		return encodeUrl(params, Constant.Charset.UTF8);
 	}
 	
 	/**
@@ -171,11 +169,11 @@ public class CheckUtil {
 	 * @param encode 编码格式
 	 * @return
 	 */
-	public static String encodeUrl(final String params, final String encode) {
+	public static String encodeUrl(String params, String encode) {
 		try {
 			return URLEncoder.encode(params, encode);
-		} catch (final UnsupportedEncodingException e) {
-			return encodeUrl(params, Charset.UTF8);
+		} catch (UnsupportedEncodingException e) {
+			return encodeUrl(params, Constant.Charset.UTF8);
 		}
 	}
 
